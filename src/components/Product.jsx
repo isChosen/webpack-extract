@@ -5,6 +5,8 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import Toast from './commons/Toast';
 
+import 'weui';
+
 class Product extends Component {
   constructor() {
     super();

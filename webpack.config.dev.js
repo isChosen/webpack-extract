@@ -11,8 +11,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+
 module.exports = {
   mode: 'production', // development production
+  devtool: false,
   entry: './src/components/index.js',
   output: {
     filename: 'js/[name].bundle.js',
@@ -56,14 +58,6 @@ module.exports = {
           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/i,
           priority: 30, // 权重要大于 libs 和 main, 不然会被打包进 libs 或 main
           chunks: 'initial'
-        },
-        commons: {
-          name: 'chunk-commons',
-          test: path.resolve(__dirname, 'src/components'),
-          priority: 12,
-          minChunks: 2,
-          chunks: 'async',
-          reuseExistingChunk: true
         }
       }
     }
@@ -174,13 +168,14 @@ module.exports = {
     publicPath: '/',
     contentBase: path.resolve(__dirname, 'dist'),
     host: 'localhost',
-    disableHostCheck: true,
+    disableHostCheck: true, // 不允许绕过服务器
     historyApiFallback: true
   },
 
   resolve: {
     modules: [path.resolve(__dirname, 'node_modules')],
-    extensions: ['.js', '.jsx', '.es6']
+    extensions: ['.js', '.jsx', '.es6'],
+    mainFields: ['main']
   },
 
   plugins: [
@@ -199,7 +194,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      title: 'Oh-2',
+      title: 'Oh-webpack-split',
       favicon: __dirname + '/src/favicon.ico',
       template: __dirname + '/template/index.html'
     }),
@@ -216,10 +211,12 @@ module.exports = {
         toType: 'template'
       }
     ]),
+    /* 
+    // production -> source-map
     new webpack.SourceMapDevToolPlugin({
       filename: '[name].js.map',
       // exclude: /^chunk-(antd|echarts|react).+\.js$/i
       include: ['js/main.bundle.js']
-    })
+    }) */
   ]
 }
