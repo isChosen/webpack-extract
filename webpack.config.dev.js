@@ -18,7 +18,7 @@ module.exports = {
   entry: './src/components/index.js',
   output: {
     filename: 'js/[name].bundle.js',
-    chunkFilename: 'js/[name].[hash:6].js',
+    chunkFilename: 'js/[name].[chunkhash:6].js',
     path: path.resolve(__dirname, 'dist'), // 打包后的目录，必须是绝对路径
     publicPath: '/' // 默认是 '/', 但现在静态资源地址是 dist
   },
