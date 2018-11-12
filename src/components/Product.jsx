@@ -5,8 +5,6 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import Toast from './commons/Toast';
 
-import 'weui';
-
 class Product extends Component {
   constructor() {
     super();
@@ -38,11 +36,16 @@ class Product extends Component {
     let myChart = Echarts.init(document.getElementById('echartCont'));
     myChart.setOption(echartsOpt);
 
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.setState({showToast: false});
     }, 3000);
 
   }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
   render() {
     const { showToast } = this.state;
     let toast = showToast ? <Toast/> : null;
