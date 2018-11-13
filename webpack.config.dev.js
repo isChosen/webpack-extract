@@ -17,7 +17,7 @@ module.exports = {
   devtool: false,
   entry: './src/components/index.js',
   output: {
-    filename: 'js/[name].bundle.js',
+    filename: 'js/[name].bundle.[hash:4].js',
     chunkFilename: 'js/[name].[chunkhash:6].js',
     path: path.resolve(__dirname, 'dist'), // 打包后的目录，必须是绝对路径
     publicPath: '/' // 默认是 '/', 但现在静态资源地址是 dist
@@ -39,7 +39,7 @@ module.exports = {
           name: 'chunk-echarts',
           test: /[\\/]node_modules[\\/]echarts[\\/]/i,
           priority: 15, // 权重要大于 libs 和 main, 不然会被打包进 libs 或 main
-          chunks: 'initial'
+          chunks: 'async'
         },
         antDesign: {
           name: 'chunk-antd',

@@ -13,6 +13,7 @@ class Home extends Component {
 
   componentDidMount() {
     console.log('lodash/array -> ', _);
+    console.log('Home.jsx');
   }
 
   render() {
