@@ -9,11 +9,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 
 module.exports = {
-  mode: 'production', // development production
+  mode: 'development',
   devtool: false,
   entry: './src/components/index.js',
   output: {
@@ -65,7 +64,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         use: 'babel-loader'
       },
@@ -134,26 +133,6 @@ module.exports = {
               name: '[name][hash:4].[ext]',
               outputPath: 'images/'
             }
-          },
-          { // 压缩图片
-            loader: 'image-webpack-loader',
-            options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              optipng: {
-                enabled: false
-              },
-              pngquant: {
-                quality: '65-90',
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false
-              },
-              webp: {quality: 75}
-          }
           }
         ]
       }
@@ -168,11 +147,12 @@ module.exports = {
     publicPath: '/',
     contentBase: path.resolve(__dirname, 'dist'),
     host: 'localhost',
-    disableHostCheck: true, // 不允许绕过服务器
     historyApiFallback: true
   },
 
+  // 模块路径解析配置
   resolve: {
+    // 配置webpack去哪些目录下寻找第三方模块, 默认只会去 node_modules 目录下寻找. 推荐绝对路径
     modules: [path.resolve(__dirname, 'node_modules')],
     extensions: ['.js', '.jsx', '.es6'],
     mainFields: ['main']
@@ -180,14 +160,6 @@ module.exports = {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // 只压缩分离出来的 css
-    new OptimizeCssAssetsPlugin({
-      cssProcessor: require('cssnano'),
-      cssProcessorOptions: {
-        discardComments: {removeAll: true}
-      },
-      canPrint: true // 是否将插件信息打印到控制台
-    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
       chunkFilename: 'css/id[id]hash[hash:6].css', // 供应商(vendor)样式文件
@@ -210,13 +182,6 @@ module.exports = {
         to: 'css/[name].[ext]',
         toType: 'template'
       }
-    ]),
-    /* 
-    // production -> source-map
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[name].js.map',
-      // exclude: /^chunk-(antd|echarts|react).+\.js$/i
-      include: ['js/main.bundle.js']
-    }) */
+    ])
   ]
 }
