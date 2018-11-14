@@ -30,8 +30,8 @@ class Profile extends Component {
     return (
       <div className={profileStyle['hello']}>
         <h3>Profile page</h3>
-        <a href="javascript:;" class="weui-btn weui-btn_plain-default">按钮</a>
-        <a href="javascript:;" class="weui-btn weui-btn_primary weui-btn_loading"><i class="weui-loading"></i>页面主操作 Loading</a>
+        <a href="javascript:;" className="weui-btn weui-btn_plain-default">按钮</a>
+        <a href="javascript:;" className="weui-btn weui-btn_primary weui-btn_loading"><i className="weui-loading"></i>页面主操作 Loading</a>
         { toast }
       </div>
     );

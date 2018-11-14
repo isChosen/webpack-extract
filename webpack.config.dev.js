@@ -162,7 +162,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
-      chunkFilename: 'css/id[id]hash[hash:6].css', // 供应商(vendor)样式文件
+      chunkFilename: 'css/id[id]hash[chuankhash:6].css', // 供应商(vendor)样式文件
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
