@@ -14,10 +14,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
   mode: 'development',
   devtool: false,
-  entry: './src/components/index.js',
+  entry: './src/components/index.jsx',
   output: {
-    filename: 'js/[name].bundle.[hash:4].js',
-    chunkFilename: 'js/[name].[chunkhash:6].js',
+    filename: 'js/[name].bundle[hash:6].js',
+    chunkFilename: 'js/[name][chunkhash:6].js',
     path: path.resolve(__dirname, 'dist'), // 打包后的目录，必须是绝对路径
     publicPath: '/' // 默认是 '/', 但现在静态资源地址是 dist
   },
@@ -140,14 +140,14 @@ module.exports = {
   },
 
   devServer: {
-    open: true,
-    port: '8050',
     hot: true,
+    open: true,
     https: false,
+    port: '8050',
     publicPath: '/',
-    contentBase: path.resolve(__dirname, 'dist'),
     host: 'localhost',
-    historyApiFallback: true
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, 'dist')
   },
 
   // 模块路径解析配置
@@ -161,14 +161,14 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
-      chunkFilename: 'css/id[id]hash[chuankhash:6].css', // 供应商(vendor)样式文件
+      filename: 'css/[name][contenthash:6]css',
+      chunkFilename: 'css/[id][contenthash:6].css', // 供应商(vendor)样式文件
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       title: 'Oh-webpack-split',
-      favicon: __dirname + '/src/favicon.ico',
-      template: __dirname + '/template/index.html'
+      favicon: __dirname + '/favicon.ico',
+      template: __dirname + '/index.html'
     }),
     new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
