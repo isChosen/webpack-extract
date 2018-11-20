@@ -1,8 +1,3 @@
-/**
- * @date 2018-9-30
- * @description development configuration
- */
-
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -162,7 +157,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // 热模块替换
     new MiniCssExtractPlugin({
-      filename: 'css/[name][contenthash:6]css',
+      filename: 'css/[name][contenthash:6].css',
       chunkFilename: 'css/[name][contenthash:6].css', // 供应商(vendor)样式文件
     }),
     new HtmlWebpackPlugin({
