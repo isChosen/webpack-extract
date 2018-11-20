@@ -17,12 +17,13 @@ module.exports = {
   entry: './src/components/index.jsx',
   output: {
     filename: 'js/[name].bundle[hash:6].js',
-    chunkFilename: 'js/[name][chunkhash:6].js',
+    chunkFilename: 'js/[name].bundle[chunkhash:6].js',
     path: path.resolve(__dirname, 'dist'), // 打包后的目录，必须是绝对路径
     publicPath: '/' // 默认是 '/', 但现在静态资源地址是 dist
   },
   optimization: {
     splitChunks: {
+      name: true,
       chunks: 'all',
       maxAsyncRequests: 15,
       maxInitialRequests: 10,
@@ -64,7 +65,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(jsx?|es6)$/,
         exclude: /(node_modules|bower_components)/,
         use: 'babel-loader'
       },
@@ -159,18 +160,18 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(), // 热模块替换
     new MiniCssExtractPlugin({
       filename: 'css/[name][contenthash:6]css',
-      chunkFilename: 'css/[id][contenthash:6].css', // 供应商(vendor)样式文件
+      chunkFilename: 'css/[name][contenthash:6].css', // 供应商(vendor)样式文件
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      title: 'Oh-webpack-split',
+      title: 'webpack-split',
       favicon: __dirname + '/favicon.ico',
       template: __dirname + '/index.html'
     }),
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin([]),
     new CopyWebpackPlugin([
       {
         from: 'src/fonts/',

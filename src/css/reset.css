@@ -18,7 +18,6 @@
 html, body {
   margin: 0;
   padding: 5px;
-  /* background: rgb(173, 222, 229) !important; */
 }
 html {
   font-size: 26.6667vw; /* 750px -> 100px */
