@@ -166,7 +166,7 @@ module.exports = {
       favicon: __dirname + '/favicon.ico',
       template: __dirname + '/index.html'
     }),
-    new CleanWebpackPlugin([]),
+    new CleanWebpackPlugin(['dist']),
     new CopyWebpackPlugin([
       {
         from: 'src/fonts/',
